@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import OptionComp from './components/OptionComp';
-import BlogComp from './components/BlogComp';
+import Common from './components/Common';
+
 
 function App() {
 
   return (
     <>
-      <OptionComp/>
-      <BlogComp/>
+      <Common/>
     </>
   )
 }
