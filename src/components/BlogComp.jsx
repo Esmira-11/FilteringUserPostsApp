@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { Table} from 'reactstrap'
 import axios from 'axios';
-//props
-function BlogComp(props) {
 
-    const [data, setData] = useState()
+function BlogComp({selectedUserId}) {
+
+    const [data, setData] = useState([])
+    let filteredBlog = data.filter((item) => selectedUserId == item.userId)
 
     useEffect(() => {
         axios.get('https://jsonplaceholder.typicode.com/posts')
         .then(res=>{
           setData(res.data);
-          // <Common blog = {data}/>
+
         })
         .catch (err => {
             console.log("Data gelmedi!!!")
         })
     }, [])
+
 
   return (
     <>
@@ -28,17 +30,22 @@ function BlogComp(props) {
     </tr>
   </thead>
   <tbody>
-
     {
-        data && data.map(item => {
-            return <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.title}</td>
-                <td>{item.body}</td>
-            </tr>
-        })
+      data && filteredBlog.length == 0 ? data.map((item)=>(
+        <tr key={item.id}>
+          <td>{item.id}</td>
+          <td scope="row">{item.title}</td>
+          <td>{item.body}</td>
+        </tr>
+      ))
+      : filteredBlog.map((item) => (
+        <tr key={item.id}>
+          <td>{item.id}</td>
+          <td scope="row">{item.title}</td>
+          <td>{item.body}</td>
+        </tr>
+      ))
     }
-
   </tbody>
 </Table>
     </>

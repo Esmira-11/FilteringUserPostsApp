@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {Form,Input} from 'reactstrap'
-import Common from './Common'
-//props
-function OptionComp() {
 
-    
+function OptionComp({setselectedUserId}) {
+
     const [user, setUser] = useState([])
 
     useEffect(() => {
@@ -19,39 +17,30 @@ function OptionComp() {
         })
     }, [])
 
-    // const getUser =()=>{
-    //   <Common selectedUserId = {user.id}/>
-    // }
-
     const getUser= (e) => {
-      props(e.target.value);
+      setselectedUserId(e.target.value);
     };
 
-
   return (
-    
     <>
     <Form>   
-  <Input
+    <Input
     bsSize="lg"
     className="mb-3"
     type="select"
     style={{background:'#b8bcbc'}}
     onChange={getUser}
-  >
-    {/* {props.getUser(user.id)} */}
-    <option >Filter blogs for users</option>
+    >
+      <option >Filter blogs for users</option>
       {
         user && user.map((item) =>(
-          <option value={item.id}>
+          <option key={item.id} value={item.id}>
             {item.name}
           </option>
         ))
       }
-    
-  </Input>  
+    </Input>  
 </Form>
-
     </>
   )
 }
